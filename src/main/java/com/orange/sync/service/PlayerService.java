@@ -67,7 +67,7 @@ public class PlayerService {
 
     public static void updatePlayerToLeaveRoom(Long playerId) {
         Player player = getPlayer(playerId);
-        if (Objects.isNull(player)){
+        if (Objects.isNull(player) || Objects.isNull(player.getRoomId())){
             return;
         }
         System.out.println("玩家"+player.getId()+"离开房间:"+ player.getRoomId());

@@ -50,14 +50,16 @@ public class ServerHandlerAdapter extends SimpleChannelInboundHandler<Object> {
         //断开连接
         System.out.println("客户端断开连接：" + ctx.channel());
 
-        //主动通知用户
-        MessageUtil.sendMsg2All(ApiEnum.MSG_PlayerSync, PlayerService.listPlayers());
-        MessageUtil.sendMsg2All(ApiEnum.MSG_RoomSync, RoomService.listRoom());
 
         //先清除范围小，后清范围大
         RoomService.removePlayerByChannel(ctx.channel());
         PlayerService.removePlayerByChannel(ctx.channel());
         ChannelSupervise.removeChannel(ctx.channel());
+
+
+        //主动通知用户
+        MessageUtil.sendMsg2All(ApiEnum.MSG_PlayerSync, PlayerService.listPlayers());
+        MessageUtil.sendMsg2All(ApiEnum.MSG_RoomSync, RoomService.listRoom());
     }
 
     @Override

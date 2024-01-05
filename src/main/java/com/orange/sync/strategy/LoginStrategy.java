@@ -1,4 +1,5 @@
 package com.orange.sync.strategy;
+
 import com.alibaba.fastjson.JSONObject;
 import com.orange.sync.entity.Player;
 import com.orange.sync.enums.ApiEnum;
@@ -19,17 +20,17 @@ public class LoginStrategy implements IMessage {
     public void doDispatcherMsg(String msg, Channel channel) {
 
         //解密数据
-        JSONObject   json =JSONObject.parseObject(msg);
+        JSONObject json = JSONObject.parseObject(msg);
         String name = json.getString("nick");
-        if (StringUtil.isNullOrEmpty(name)){
-            MessageUtil.sendApi(ApiEnum.API_Login,"登录失败，请输入昵称");
+        if (StringUtil.isNullOrEmpty(name)) {
+            MessageUtil.sendApi(ApiEnum.API_Login, "登录失败，请输入昵称");
             return;
         }
 
-        Player  player  = PlayerService.createPlayer(name,channel);
-        MessageUtil.sendApi(ApiEnum.API_Login,player);
+        Player player = PlayerService.createPlayer(name, channel);
+        MessageUtil.sendApi(ApiEnum.API_Login, player);
         System.out.println("创建角色完成");
-        MessageUtil.sendMsg2AppointOne(ApiEnum.MSG_ServerSync, "", channel);
+        MessageUtil.sendMsg2All(ApiEnum.MSG_PlayerSync, PlayerService.listPlayers());
     }
 
 

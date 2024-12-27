@@ -1,4 +1,4 @@
-# stack-sync-server
+# frame-sync-server
 帧同步-服务端（房间对战）
 # 服务端采用Netty实现
 ## 通信：websocket
